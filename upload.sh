@@ -4,7 +4,6 @@ if [ $# -eq 0 ]
     exit
 fi
 
-
 if [ ! -z "`git status | grep "not staged"`" ]; then
    echo "🛑 You have not staged changes. Make 'git add .' "
    exit
@@ -41,7 +40,7 @@ if ! scp ./production/remote_run.sh $1:~/remote_run.sh; then
 echo "✅ Script remote_run.sh copied!"
 
 if ! ssh $1 "./remote_run.sh $APP_NAME $REPO"; then
-  echo "🛑 Failed while running prepare.sh"
+  echo "🛑 Failed while running remote_run.sh"
   exit 1;
 fi
 
