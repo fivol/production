@@ -26,9 +26,11 @@ sudo systemctl enable docker
 
 if ! cd $1; then
   git clone $2
+  git submodule update --init
   cd $1
 else
   git pull
+  git submodule update --recursive
 fi
 
 docker-compose build
