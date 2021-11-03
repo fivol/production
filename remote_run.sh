@@ -12,19 +12,19 @@ if [ -z $HOSTNAME ]
     exit 1
 fi
 
-if [ -z "`history | grep 'apt-get update'`"  ]
+if [ "1" = "`history | grep 'apt upgrade -y' | wc | awk '{ print $1 }'`"  ]
 then
-  sudo apt-get update -y
-  sudo apt-get upgrade -y
+  sudo apt update -y
+  sudo apt upgrade -y
 fi
 
-if [ -z "`history | grep 'apt install -y docker-compose'`"  ]
+if [ "1" = "`history | grep 'install -y docker-compose' | wc | awk '{ print $1 }'`"   ]
 then
   sudo apt install -y docker
   sudo apt install -y docker-compose
 fi
 
-if [ -z "`history | grep 'sudo apt install -y git'`"  ]
+if [ "1" = "`history | grep 'apt install -y git' | wc | awk '{ print $1 }'`"   ]
 then
   sudo apt install -y git
 fi
