@@ -12,15 +12,23 @@ if [ -z $HOSTNAME ]
     exit 1
 fi
 
-# TODO Make only on new servers (add auto check)
-sudo apt-get update -y
-sudo apt-get upgrade -y
+if [ -z "`history | grep 'apt-get update'`"  ]
+then
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
+fi
 
-# TODO Optimize (not install if exists)
-sudo apt install -y docker
-# TODO Fix docker-compose unsupported version problem
-sudo apt install -y docker-compose
-sudo apt install -y git
+if [ -z "`history | grep 'apt install -y docker-compose'`"  ]
+then
+  sudo apt install -y docker
+  sudo apt install -y docker-compose
+fi
+
+if [ -z "`history | grep 'sudo apt install -y git'`"  ]
+then
+  sudo apt install -y git
+fi
+
 # https://stackoverflow.com/questions/43671482/how-to-run-docker-compose-up-d-at-system-start-up
 sudo systemctl enable docker
 
@@ -33,5 +41,11 @@ else
   git submodule update --recursive
 fi
 
-docker-compose build
-docker-compose up -d
+if test -f "run.sh"; then
+    echo "🏃 Using run.sh"
+else
+  echo "🏃 Run docker compose"
+  docker-compose build
+  docker-compose up -d
+fi
+
